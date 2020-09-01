@@ -45,6 +45,14 @@ class Exception implements DocumentInterface
         );
     }
 
+    public function withoutTrace(): self
+    {
+        $new = clone $this;
+        $new->trace = [];
+
+        return $new;
+    }
+
     public function getType(): string
     {
         return self::TYPE;
