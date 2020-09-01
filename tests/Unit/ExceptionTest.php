@@ -54,4 +54,23 @@ class ExceptionTest extends TestCase
             ],
         ];
     }
+
+    public function testWithoutTrace()
+    {
+        $throwable = new RuntimeException('RuntimeException message', 123);
+
+        $exception = Exception::createFromThrowable($throwable);
+        $exception = $exception->withoutTrace();
+
+        self::assertSame(
+            [
+                'step' => null,
+                'class' => RuntimeException::class,
+                'message' => 'RuntimeException message',
+                'code' => 123,
+                'trace' => [],
+            ],
+            $exception->getData()
+        );
+    }
 }
