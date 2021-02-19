@@ -16,11 +16,14 @@ class StepTest extends TestCase
      * @param Step $step
      * @param array<mixed> $expectedData
      */
-    public function testGetData(Step $step, array $expectedData)
+    public function testGetData(Step $step, array $expectedData): void
     {
         self::assertSame($expectedData, $step->getData());
     }
 
+    /**
+     * @return array[]
+     */
     public function getDataDataProvider(): array
     {
         $statement1 = \Mockery::mock(DocumentInterface::class);
