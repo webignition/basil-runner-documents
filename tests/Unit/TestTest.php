@@ -10,7 +10,7 @@ use webignition\BasilRunnerDocuments\TestConfiguration;
 
 class TestTest extends TestCase
 {
-    public function testGetType()
+    public function testGetType(): void
     {
         $test = new Test(
             'test.yml',
@@ -25,11 +25,14 @@ class TestTest extends TestCase
      * @param Test $test
      * @param array<mixed> $expectedData
      */
-    public function testGetData(Test $test, array $expectedData)
+    public function testGetData(Test $test, array $expectedData): void
     {
         self::assertSame($expectedData, $test->getData());
     }
 
+    /**
+     * @return array[]
+     */
     public function getDataDataProvider(): array
     {
         return [

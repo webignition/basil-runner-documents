@@ -16,7 +16,7 @@ class ExceptionTest extends TestCase
      * @param Exception $exception
      * @param array<string, string|int> $expectedDataWithoutTrace
      */
-    public function testGetData(Exception $exception, array $expectedDataWithoutTrace)
+    public function testGetData(Exception $exception, array $expectedDataWithoutTrace): void
     {
         $data = $exception->getData();
 
@@ -29,6 +29,9 @@ class ExceptionTest extends TestCase
         self::assertSame($expectedDataWithoutTrace, $data);
     }
 
+    /**
+     * @return array[]
+     */
     public function getDataDataProvider(): array
     {
         $throwable = new RuntimeException('RuntimeException message', 123);
@@ -55,7 +58,7 @@ class ExceptionTest extends TestCase
         ];
     }
 
-    public function testWithoutTrace()
+    public function testWithoutTrace(): void
     {
         $throwable = new RuntimeException('RuntimeException message', 123);
 
