@@ -9,12 +9,6 @@ use webignition\BasilRunnerDocuments\TestConfiguration;
 
 class TestConfigurationTest extends TestCase
 {
-    public function testGetType(): void
-    {
-        $configuration = new TestConfiguration('chrome', 'http://example.com');
-        self::assertSame('test-configuration', $configuration->getType());
-    }
-
     /**
      * @dataProvider getDataDataProvider
      *
@@ -34,15 +28,21 @@ class TestConfigurationTest extends TestCase
             'chrome, http://example.com' => [
                 'configuration' => new TestConfiguration('chrome', 'http://example.com'),
                 'expectedData' => [
-                    'browser' => 'chrome',
-                    'url' => 'http://example.com'
+                    'type' => TestConfiguration::TYPE,
+                    'payload' => [
+                        'browser' => 'chrome',
+                        'url' => 'http://example.com'
+                    ],
                 ],
             ],
             'firefox, http://example.org' => [
                 'configuration' => new TestConfiguration('firefox', 'http://example.org'),
                 'expectedData' => [
-                    'browser' => 'firefox',
-                    'url' => 'http://example.org'
+                    'type' => TestConfiguration::TYPE,
+                    'payload' => [
+                        'browser' => 'firefox',
+                        'url' => 'http://example.org'
+                    ],
                 ],
             ],
         ];

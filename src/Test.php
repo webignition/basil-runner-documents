@@ -6,7 +6,7 @@ namespace webignition\BasilRunnerDocuments;
 
 class Test implements DocumentInterface
 {
-    private const TYPE = 'test';
+    public const TYPE = 'test';
 
     public function __construct(
         private string $path,
@@ -14,16 +14,14 @@ class Test implements DocumentInterface
     ) {
     }
 
-    public function getType(): string
-    {
-        return self::TYPE;
-    }
-
     public function getData(): array
     {
         return [
-            'path' => $this->path,
-            'config' => $this->configuration->getData(),
+            'type' => self::TYPE,
+            'payload' => [
+                'path' => $this->path,
+                'config' => $this->configuration->createPayload(),
+            ],
         ];
     }
 }

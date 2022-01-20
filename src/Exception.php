@@ -6,7 +6,7 @@ namespace webignition\BasilRunnerDocuments;
 
 class Exception implements DocumentInterface
 {
-    private const TYPE = 'exception';
+    public const TYPE = 'exception';
 
     /**
      * @param array<mixed> $trace
@@ -39,19 +39,17 @@ class Exception implements DocumentInterface
         return $new;
     }
 
-    public function getType(): string
-    {
-        return self::TYPE;
-    }
-
     public function getData(): array
     {
         return [
-            'step' => $this->stepName,
-            'class' => $this->class,
-            'message' => $this->message,
-            'code' => $this->code,
-            'trace' => $this->trace,
+            'type' => self::TYPE,
+            'payload' => [
+                'step' => $this->stepName,
+                'class' => $this->class,
+                'message' => $this->message,
+                'code' => $this->code,
+                'trace' => $this->trace,
+            ],
         ];
     }
 }

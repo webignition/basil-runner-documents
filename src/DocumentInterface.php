@@ -6,10 +6,8 @@ namespace webignition\BasilRunnerDocuments;
 
 interface DocumentInterface
 {
-    public function getType(): string;
-
     /**
-     * @return array<mixed>
+     * @return array{"type": string, "payload": array<mixed>}
      */
     public function getData(): array;
 }
