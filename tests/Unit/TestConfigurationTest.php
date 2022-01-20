@@ -26,7 +26,7 @@ class TestConfigurationTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function getDataDataProvider(): array
     {
