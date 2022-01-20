@@ -8,26 +8,16 @@ class Exception implements DocumentInterface
 {
     private const TYPE = 'exception';
 
-    private ?string $stepName;
-    private string $class;
-    private string $message;
-    private int $code;
-
-    /**
-     * @var array<mixed>
-     */
-    private array $trace;
-
     /**
      * @param array<mixed> $trace
      */
-    private function __construct(string $class, string $message, int $code, array $trace, ?string $stepName = null)
-    {
-        $this->class = $class;
-        $this->message = $message;
-        $this->code = $code;
-        $this->trace = $trace;
-        $this->stepName = $stepName;
+    private function __construct(
+        private string $class,
+        private string $message,
+        private int $code,
+        private array $trace,
+        private ?string $stepName = null
+    ) {
     }
 
     public static function createFromThrowable(\Throwable $throwable, ?string $stepName = null): self

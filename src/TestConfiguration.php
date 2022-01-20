@@ -8,13 +8,10 @@ class TestConfiguration implements DocumentInterface
 {
     private const TYPE = 'test-configuration';
 
-    private string $browser;
-    private string $url;
-
-    public function __construct(string $browser, string $url)
-    {
-        $this->browser = $browser;
-        $this->url = $url;
+    public function __construct(
+        private string $browser,
+        private string $url
+    ) {
     }
 
     public function getType(): string
