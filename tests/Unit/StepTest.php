@@ -13,7 +13,6 @@ class StepTest extends TestCase
     /**
      * @dataProvider getDataDataProvider
      *
-     * @param Step $step
      * @param array<mixed> $expectedData
      */
     public function testGetData(Step $step, array $expectedData): void
@@ -31,14 +30,16 @@ class StepTest extends TestCase
             ->shouldReceive('getData')
             ->andReturn([
                 'content' => 'statement 1 mock content',
-            ]);
+            ])
+        ;
 
         $statement2 = \Mockery::mock(DocumentInterface::class);
         $statement2
             ->shouldReceive('getData')
             ->andReturn([
                 'content' => 'statement 2 mock content',
-            ]);
+            ])
+        ;
 
         $statusPassed = 'passed';
         $statusFailed = 'failed';

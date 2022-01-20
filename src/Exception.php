@@ -14,16 +14,12 @@ class Exception implements DocumentInterface
     private int $code;
 
     /**
-     * @var array<int, array<string, string|int>>
+     * @var array<int, array<string, int|string>>
      */
     private array $trace;
 
     /**
-     * @param string $class
-     * @param string $message
-     * @param int $code
-     * @param array<int, array<string, string|int>> $trace
-     * @param string|null $stepName
+     * @param array<int, array<string, int|string>> $trace
      */
     private function __construct(string $class, string $message, int $code, array $trace, ?string $stepName = null)
     {
