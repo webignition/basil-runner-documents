@@ -18,7 +18,6 @@ class TestConfigurationTest extends TestCase
     /**
      * @dataProvider getDataDataProvider
      *
-     * @param TestConfiguration $configuration
      * @param array<string, string> $expectedData
      */
     public function testGetData(TestConfiguration $configuration, array $expectedData): void
@@ -27,7 +26,7 @@ class TestConfigurationTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function getDataDataProvider(): array
     {

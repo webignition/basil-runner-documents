@@ -22,7 +22,6 @@ class TestTest extends TestCase
     /**
      * @dataProvider getDataDataProvider
      *
-     * @param Test $test
      * @param array<mixed> $expectedData
      */
     public function testGetData(Test $test, array $expectedData): void
@@ -31,7 +30,7 @@ class TestTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function getDataDataProvider(): array
     {

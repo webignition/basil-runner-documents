@@ -13,8 +13,7 @@ class ExceptionTest extends TestCase
     /**
      * @dataProvider getDataDataProvider
      *
-     * @param Exception $exception
-     * @param array<string, string|int> $expectedDataWithoutTrace
+     * @param array<string, int|string> $expectedDataWithoutTrace
      */
     public function testGetData(Exception $exception, array $expectedDataWithoutTrace): void
     {
@@ -30,7 +29,7 @@ class ExceptionTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function getDataDataProvider(): array
     {

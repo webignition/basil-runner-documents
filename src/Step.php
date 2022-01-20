@@ -17,15 +17,13 @@ class Step implements DocumentInterface
     private array $statements;
 
     /**
-     * @var array<mixed>|null
+     * @var null|array<mixed>
      */
     private ?array $data;
 
     /**
-     * @param string $name
-     * @param string $status
      * @param DocumentInterface[] $statements
-     * @param array<mixed> $data
+     * @param array<mixed>        $data
      */
     public function __construct(string $name, string $status, array $statements, array $data = null)
     {
