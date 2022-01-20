@@ -6,7 +6,7 @@ namespace webignition\BasilRunnerDocuments;
 
 class Step implements DocumentInterface
 {
-    private const TYPE = 'step';
+    public const TYPE = 'step';
 
     /**
      * @var DocumentInterface[]
@@ -28,12 +28,18 @@ class Step implements DocumentInterface
         });
     }
 
-    public function getType(): string
+    public function getData(): array
     {
-        return self::TYPE;
+        return [
+            'type' => self::TYPE,
+            'payload' => $this->createPayload(),
+        ];
     }
 
-    public function getData(): array
+    /**
+     * @return array<mixed>
+     */
+    private function createPayload(): array
     {
         $data = [
             'name' => $this->name,

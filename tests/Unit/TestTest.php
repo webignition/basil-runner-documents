@@ -10,15 +10,6 @@ use webignition\BasilRunnerDocuments\TestConfiguration;
 
 class TestTest extends TestCase
 {
-    public function testGetType(): void
-    {
-        $test = new Test(
-            'test.yml',
-            new TestConfiguration('chrome', 'http://example.com')
-        );
-        self::assertSame('test', $test->getType());
-    }
-
     /**
      * @dataProvider getDataDataProvider
      *
@@ -41,10 +32,13 @@ class TestTest extends TestCase
                     new TestConfiguration('chrome', 'http://example.com')
                 ),
                 'expectedData' => [
-                    'path' => 'test1.yml',
-                    'config' => [
-                        'browser' => 'chrome',
-                        'url' => 'http://example.com'
+                    'type' => Test::TYPE,
+                    'payload' => [
+                        'path' => 'test1.yml',
+                        'config' => [
+                            'browser' => 'chrome',
+                            'url' => 'http://example.com'
+                        ],
                     ],
                 ],
             ],
@@ -54,10 +48,13 @@ class TestTest extends TestCase
                     new TestConfiguration('firefox', 'http://example.org')
                 ),
                 'expectedData' => [
-                    'path' => 'test2.yml',
-                    'config' => [
-                        'browser' => 'firefox',
-                        'url' => 'http://example.org'
+                    'type' => Test::TYPE,
+                    'payload' => [
+                        'path' => 'test2.yml',
+                        'config' => [
+                            'browser' => 'firefox',
+                            'url' => 'http://example.org'
+                        ],
                     ],
                 ],
             ],

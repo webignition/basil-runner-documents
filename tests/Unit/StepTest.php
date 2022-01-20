@@ -54,12 +54,15 @@ class StepTest extends TestCase
                     ]
                 ),
                 'expectedData' => [
-                    'name' => 'passed, single statement',
-                    'status' => $statusPassed,
-                    'statements' => [
-                        [
-                            'content' => 'statement 1 mock content',
-                        ]
+                    'type' => Step::TYPE,
+                    'payload' => [
+                        'name' => 'passed, single statement',
+                        'status' => $statusPassed,
+                        'statements' => [
+                            [
+                                'content' => 'statement 1 mock content',
+                            ]
+                        ],
                     ],
                 ],
             ],
@@ -73,14 +76,17 @@ class StepTest extends TestCase
                     ]
                 ),
                 'expectedData' => [
-                    'name' => 'passed, single action, single assertion',
-                    'status' => $statusPassed,
-                    'statements' => [
-                        [
-                            'content' => 'statement 1 mock content',
-                        ],
-                        [
-                            'content' => 'statement 2 mock content',
+                    'type' => Step::TYPE,
+                    'payload' => [
+                        'name' => 'passed, single action, single assertion',
+                        'status' => $statusPassed,
+                        'statements' => [
+                            [
+                                'content' => 'statement 1 mock content',
+                            ],
+                            [
+                                'content' => 'statement 2 mock content',
+                            ],
                         ],
                     ],
                 ],
@@ -94,11 +100,14 @@ class StepTest extends TestCase
                     ]
                 ),
                 'expectedData' => [
-                    'name' => 'failed, single assertion',
-                    'status' => $statusFailed,
-                    'statements' => [
-                        [
-                            'content' => 'statement 1 mock content',
+                    'type' => Step::TYPE,
+                    'payload' => [
+                        'name' => 'failed, single assertion',
+                        'status' => $statusFailed,
+                        'statements' => [
+                            [
+                                'content' => 'statement 1 mock content',
+                            ],
                         ],
                     ],
                 ],
@@ -115,15 +124,18 @@ class StepTest extends TestCase
                     ]
                 ),
                 'expectedData' => [
-                    'name' => 'passed, single is assertion with data',
-                    'status' => $statusPassed,
-                    'statements' => [
-                        [
-                            'content' => 'statement 1 mock content',
+                    'type' => Step::TYPE,
+                    'payload' => [
+                        'name' => 'passed, single is assertion with data',
+                        'status' => $statusPassed,
+                        'statements' => [
+                            [
+                                'content' => 'statement 1 mock content',
+                            ],
                         ],
-                    ],
-                    'data' => [
-                        'expected_value' => 'literal',
+                        'data' => [
+                            'expected_value' => 'literal',
+                        ],
                     ],
                 ],
             ],

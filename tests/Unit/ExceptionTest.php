@@ -18,14 +18,18 @@ class ExceptionTest extends TestCase
     public function testGetData(Exception $exception, array $expectedDataWithoutTrace): void
     {
         $data = $exception->getData();
+        self::assertSame(Exception::TYPE, $data['type']);
 
-        $trace = $data['trace'];
+        $payload = $data['payload'];
+        self::assertIsArray($payload);
+
+        $trace = $payload['trace'];
         self::assertIsArray($trace);
         self::assertNotEmpty($trace);
 
-        unset($data['trace']);
+        unset($payload['trace']);
 
-        self::assertSame($expectedDataWithoutTrace, $data);
+        self::assertSame($expectedDataWithoutTrace, $payload);
     }
 
     /**
@@ -66,11 +70,14 @@ class ExceptionTest extends TestCase
 
         self::assertSame(
             [
-                'step' => null,
-                'class' => RuntimeException::class,
-                'message' => 'RuntimeException message',
-                'code' => 123,
-                'trace' => [],
+                'type' => Exception::TYPE,
+                'payload' => [
+                    'step' => null,
+                    'class' => RuntimeException::class,
+                    'message' => 'RuntimeException message',
+                    'code' => 123,
+                    'trace' => [],
+                ],
             ],
             $exception->getData()
         );
