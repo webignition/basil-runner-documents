@@ -8,31 +8,24 @@ class Step implements DocumentInterface
 {
     private const TYPE = 'step';
 
-    private string $name;
-    private string $status;
-
     /**
      * @var DocumentInterface[]
      */
     private array $statements;
 
     /**
-     * @var null|array<mixed>
-     */
-    private ?array $data;
-
-    /**
      * @param DocumentInterface[] $statements
-     * @param array<mixed>        $data
+     * @param null|array<mixed>   $data
      */
-    public function __construct(string $name, string $status, array $statements, array $data = null)
-    {
-        $this->name = $name;
-        $this->status = $status;
+    public function __construct(
+        private string $name,
+        private string $status,
+        array $statements,
+        private ?array $data = null
+    ) {
         $this->statements = array_filter($statements, function ($item) {
             return $item instanceof DocumentInterface;
         });
-        $this->data = $data;
     }
 
     public function getType(): string

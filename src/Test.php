@@ -8,13 +8,10 @@ class Test implements DocumentInterface
 {
     private const TYPE = 'test';
 
-    private string $path;
-    private TestConfiguration $configuration;
-
-    public function __construct(string $path, TestConfiguration $configuration)
-    {
-        $this->path = $path;
-        $this->configuration = $configuration;
+    public function __construct(
+        private string $path,
+        private TestConfiguration $configuration
+    ) {
     }
 
     public function getType(): string
