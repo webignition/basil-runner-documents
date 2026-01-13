@@ -31,7 +31,7 @@ class TestConfigurationTest extends TestCase
                     'type' => TestConfiguration::TYPE,
                     'payload' => [
                         'browser' => 'chrome',
-                        'url' => 'http://example.com'
+                        'url' => 'http://example.com',
                     ],
                 ],
             ],
@@ -41,7 +41,7 @@ class TestConfigurationTest extends TestCase
                     'type' => TestConfiguration::TYPE,
                     'payload' => [
                         'browser' => 'firefox',
-                        'url' => 'http://example.org'
+                        'url' => 'http://example.org',
                     ],
                 ],
             ],
