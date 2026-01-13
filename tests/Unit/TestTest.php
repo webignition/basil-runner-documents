@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace webignition\BasilRunnerDocuments\Tests\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use webignition\BasilRunnerDocuments\Test;
 use webignition\BasilRunnerDocuments\TestConfiguration;
@@ -11,10 +12,9 @@ use webignition\BasilRunnerDocuments\TestConfiguration;
 class TestTest extends TestCase
 {
     /**
-     * @dataProvider getDataDataProvider
-     *
      * @param array<mixed> $expectedData
      */
+    #[DataProvider('getDataDataProvider')]
     public function testGetData(Test $test, array $expectedData): void
     {
         self::assertSame($expectedData, $test->getData());
@@ -23,7 +23,7 @@ class TestTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function getDataDataProvider(): array
+    public static function getDataDataProvider(): array
     {
         return [
             'test1.yml, chrome, http://example.com' => [

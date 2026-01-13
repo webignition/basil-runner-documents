@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace webignition\BasilRunnerDocuments\Tests\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use webignition\BasilRunnerDocuments\DocumentInterface;
 use webignition\BasilRunnerDocuments\Step;
@@ -11,10 +12,9 @@ use webignition\BasilRunnerDocuments\Step;
 class StepTest extends TestCase
 {
     /**
-     * @dataProvider getDataDataProvider
-     *
      * @param array<mixed> $expectedData
      */
+    #[DataProvider('getDataDataProvider')]
     public function testGetData(Step $step, array $expectedData): void
     {
         self::assertSame($expectedData, $step->getData());
@@ -23,7 +23,7 @@ class StepTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function getDataDataProvider(): array
+    public static function getDataDataProvider(): array
     {
         $statement1 = \Mockery::mock(DocumentInterface::class);
         $statement1

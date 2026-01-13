@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace webignition\BasilRunnerDocuments\Tests\Unit;
 
 use Mockery\Exception\RuntimeException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use webignition\BasilRunnerDocuments\Exception;
 
 class ExceptionTest extends TestCase
 {
     /**
-     * @dataProvider getDataDataProvider
-     *
      * @param array<string, int|string> $expectedDataWithoutTrace
      */
+    #[DataProvider('getDataDataProvider')]
     public function testGetData(Exception $exception, array $expectedDataWithoutTrace): void
     {
         $data = $exception->getData();
@@ -33,7 +33,7 @@ class ExceptionTest extends TestCase
     /**
      * @return array<mixed>
      */
-    public function getDataDataProvider(): array
+    public static function getDataDataProvider(): array
     {
         $throwable = new RuntimeException('RuntimeException message', 123);
 
