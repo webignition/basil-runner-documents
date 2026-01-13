@@ -8,27 +8,23 @@ use Mockery\Exception\RuntimeException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use webignition\BasilRunnerDocuments\Exception;
+use webignition\BasilRunnerDocuments\StackTrace;
 
 class ExceptionTest extends TestCase
 {
     /**
-     * @param array<string, int|string> $expectedDataWithoutTrace
+     * @param array<string, int|string> $expectedData
      */
     #[DataProvider('getDataDataProvider')]
     public function testGetData(
         Exception $exception,
-        array $expectedDataWithoutTrace,
-        bool $expectedTraceIsNull,
+        array $expectedData,
     ): void {
         $data = $exception->getData();
         self::assertSame(Exception::TYPE, $data['type']);
 
         $payload = $data['payload'];
-        $trace = $payload['trace'];
-        self::assertSame($expectedTraceIsNull, null === $trace);
-
-        unset($payload['trace']);
-        self::assertSame($expectedDataWithoutTrace, $payload);
+        self::assertSame($expectedData, $payload);
     }
 
     /**
@@ -45,12 +41,12 @@ class ExceptionTest extends TestCase
                     $throwable->getMessage(),
                     $throwable->getCode(),
                 ),
-                'expectedTraceIsNull' => true,
-                'expectedDataWithoutTrace' => [
+                'expectedData' => [
                     'step' => null,
                     'class' => RuntimeException::class,
                     'message' => 'RuntimeException message',
                     'code' => 123,
+                    'trace' => null,
                 ],
             ],
             'with step name, without trace' => [
@@ -59,22 +55,22 @@ class ExceptionTest extends TestCase
                     $throwable->getMessage(),
                     $throwable->getCode(),
                 )->withStepName('step name present'),
-                'expectedTraceIsNull' => true,
-                'expectedDataWithoutTrace' => [
+                'expectedData' => [
                     'step' => 'step name present',
                     'class' => RuntimeException::class,
                     'message' => 'RuntimeException message',
                     'code' => 123,
+                    'trace' => null,
                 ],
             ],
             'from throwable, without step name' => [
                 'exception' => Exception::createFromThrowable($throwable),
-                'expectedTraceIsNull' => false,
-                'expectedDataWithoutTrace' => [
+                'expectedData' => [
                     'step' => null,
                     'class' => RuntimeException::class,
                     'message' => 'RuntimeException message',
                     'code' => 123,
+                    'trace' => StackTrace::fromPhpTrace($throwable->getTrace())->getData(),
                 ],
             ],
         ];
