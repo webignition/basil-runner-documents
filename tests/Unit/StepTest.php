@@ -61,7 +61,7 @@ class StepTest extends TestCase
                         'statements' => [
                             [
                                 'content' => 'statement 1 mock content',
-                            ]
+                            ],
                         ],
                     ],
                 ],

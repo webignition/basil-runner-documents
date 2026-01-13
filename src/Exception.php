@@ -17,8 +17,7 @@ class Exception implements DocumentInterface
         private int $code,
         private array $trace,
         private ?string $stepName = null
-    ) {
-    }
+    ) {}
 
     public static function createFromThrowable(\Throwable $throwable, ?string $stepName = null): self
     {

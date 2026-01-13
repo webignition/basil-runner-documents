@@ -11,8 +11,7 @@ class Test implements DocumentInterface
     public function __construct(
         private string $path,
         private TestConfiguration $configuration
-    ) {
-    }
+    ) {}
 
     public function getData(): array
     {

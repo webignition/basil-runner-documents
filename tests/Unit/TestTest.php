@@ -37,7 +37,7 @@ class TestTest extends TestCase
                         'path' => 'test1.yml',
                         'config' => [
                             'browser' => 'chrome',
-                            'url' => 'http://example.com'
+                            'url' => 'http://example.com',
                         ],
                     ],
                 ],
@@ -53,7 +53,7 @@ class TestTest extends TestCase
                         'path' => 'test2.yml',
                         'config' => [
                             'browser' => 'firefox',
-                            'url' => 'http://example.org'
+                            'url' => 'http://example.org',
                         ],
                     ],
                 ],
