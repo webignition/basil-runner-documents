@@ -15,17 +15,19 @@ class ExceptionTest extends TestCase
      * @param array<string, int|string> $expectedDataWithoutTrace
      */
     #[DataProvider('getDataDataProvider')]
-    public function testGetData(Exception $exception, array $expectedDataWithoutTrace): void
-    {
+    public function testGetData(
+        Exception $exception,
+        array $expectedDataWithoutTrace,
+        bool $expectedTraceIsNull,
+    ): void {
         $data = $exception->getData();
         self::assertSame(Exception::TYPE, $data['type']);
 
         $payload = $data['payload'];
         $trace = $payload['trace'];
-        self::assertIsArray($trace);
+        self::assertSame($expectedTraceIsNull, null === $trace);
 
         unset($payload['trace']);
-
         self::assertSame($expectedDataWithoutTrace, $payload);
     }
 
@@ -43,6 +45,7 @@ class ExceptionTest extends TestCase
                     $throwable->getMessage(),
                     $throwable->getCode(),
                 ),
+                'expectedTraceIsNull' => true,
                 'expectedDataWithoutTrace' => [
                     'step' => null,
                     'class' => RuntimeException::class,
@@ -56,6 +59,7 @@ class ExceptionTest extends TestCase
                     $throwable->getMessage(),
                     $throwable->getCode(),
                 )->withStepName('step name present'),
+                'expectedTraceIsNull' => true,
                 'expectedDataWithoutTrace' => [
                     'step' => 'step name present',
                     'class' => RuntimeException::class,
@@ -65,6 +69,7 @@ class ExceptionTest extends TestCase
             ],
             'from throwable, without step name' => [
                 'exception' => Exception::createFromThrowable($throwable),
+                'expectedTraceIsNull' => false,
                 'expectedDataWithoutTrace' => [
                     'step' => null,
                     'class' => RuntimeException::class,
@@ -79,12 +84,7 @@ class ExceptionTest extends TestCase
     {
         $throwable = new RuntimeException('RuntimeException message', 123);
 
-        $exception = new Exception(
-            $throwable::class,
-            $throwable->getMessage(),
-            $throwable->getCode(),
-        )->withTrace($throwable->getTrace());
-
+        $exception = Exception::createFromThrowable($throwable);
         $exception = $exception->withoutTrace();
 
         self::assertSame(
@@ -95,7 +95,7 @@ class ExceptionTest extends TestCase
                     'class' => RuntimeException::class,
                     'message' => 'RuntimeException message',
                     'code' => 123,
-                    'trace' => [],
+                    'trace' => null,
                 ],
             ],
             $exception->getData()
