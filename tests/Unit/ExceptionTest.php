@@ -23,7 +23,6 @@ class ExceptionTest extends TestCase
         $payload = $data['payload'];
         $trace = $payload['trace'];
         self::assertIsArray($trace);
-        self::assertEmpty($trace);
 
         unset($payload['trace']);
 
@@ -43,7 +42,6 @@ class ExceptionTest extends TestCase
                     $throwable::class,
                     $throwable->getMessage(),
                     $throwable->getCode(),
-                    [],
                 ),
                 'expectedDataWithoutTrace' => [
                     'step' => null,
@@ -57,11 +55,18 @@ class ExceptionTest extends TestCase
                     $throwable::class,
                     $throwable->getMessage(),
                     $throwable->getCode(),
-                    [],
-                    'step name present',
-                ),
+                )->withStepName('step name present'),
                 'expectedDataWithoutTrace' => [
                     'step' => 'step name present',
+                    'class' => RuntimeException::class,
+                    'message' => 'RuntimeException message',
+                    'code' => 123,
+                ],
+            ],
+            'from throwable, without step name' => [
+                'exception' => Exception::createFromThrowable($throwable),
+                'expectedDataWithoutTrace' => [
+                    'step' => null,
                     'class' => RuntimeException::class,
                     'message' => 'RuntimeException message',
                     'code' => 123,
@@ -78,8 +83,7 @@ class ExceptionTest extends TestCase
             $throwable::class,
             $throwable->getMessage(),
             $throwable->getCode(),
-            [],
-        );
+        )->withTrace($throwable->getTrace());
 
         $exception = $exception->withoutTrace();
 

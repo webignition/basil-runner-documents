@@ -9,31 +9,58 @@ class Exception implements DocumentInterface
     public const TYPE = 'exception';
 
     /**
-     * @param array<mixed> $trace
+     * @var array<mixed>
      */
+    private array $trace = [];
+
+    private ?string $stepName = null;
+
     public function __construct(
-        private string $class,
-        private string $message,
-        private int $code,
-        private array $trace,
-        private ?string $stepName = null
+        private readonly string $class,
+        private readonly string $message,
+        private readonly int $code,
     ) {}
 
     public static function createFromThrowable(\Throwable $throwable, ?string $stepName = null): self
     {
-        return new Exception(
+        $exception = new Exception(
             get_class($throwable),
             $throwable->getMessage(),
             $throwable->getCode(),
-            $throwable->getTrace(),
-            $stepName
         );
+
+        $exception = $exception->withTrace($throwable->getTrace());
+
+        if (is_string($stepName)) {
+            $exception = $exception->withStepName($stepName);
+        }
+
+        return $exception;
+    }
+
+    /**
+     * @param array<mixed> $trace
+     */
+    public function withTrace(array $trace): self
+    {
+        $new = clone $this;
+        $new->trace = $trace;
+
+        return $new;
     }
 
     public function withoutTrace(): self
     {
         $new = clone $this;
         $new->trace = [];
+
+        return $new;
+    }
+
+    public function withStepName(string $stepName): self
+    {
+        $new = clone $this;
+        $new->stepName = $stepName;
 
         return $new;
     }
