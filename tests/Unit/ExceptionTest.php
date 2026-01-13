@@ -21,8 +21,6 @@ class ExceptionTest extends TestCase
         self::assertSame(Exception::TYPE, $data['type']);
 
         $payload = $data['payload'];
-        self::assertIsArray($payload);
-
         $trace = $payload['trace'];
         self::assertIsArray($trace);
         self::assertNotEmpty($trace);
