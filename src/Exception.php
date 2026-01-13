@@ -68,7 +68,7 @@ class Exception implements DocumentInterface
                 'class' => $this->class,
                 'message' => $this->message,
                 'code' => $this->code,
-                'trace' => $this->trace,
+                'trace' => $this->trace?->getData(),
             ],
         ];
     }
