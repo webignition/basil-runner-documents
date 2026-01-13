@@ -8,10 +8,7 @@ class Exception implements DocumentInterface
 {
     public const TYPE = 'exception';
 
-    /**
-     * @var array<mixed>
-     */
-    private array $trace = [];
+    private ?StackTrace $trace = null;
 
     private ?string $stepName = null;
 
@@ -29,7 +26,7 @@ class Exception implements DocumentInterface
             $throwable->getCode(),
         );
 
-        $exception = $exception->withTrace($throwable->getTrace());
+        $exception = $exception->withTrace(StackTrace::fromPhpTrace($throwable->getTrace()));
 
         if (is_string($stepName)) {
             $exception = $exception->withStepName($stepName);
@@ -38,10 +35,7 @@ class Exception implements DocumentInterface
         return $exception;
     }
 
-    /**
-     * @param array<mixed> $trace
-     */
-    public function withTrace(array $trace): self
+    public function withTrace(StackTrace $trace): self
     {
         $new = clone $this;
         $new->trace = $trace;
@@ -52,7 +46,7 @@ class Exception implements DocumentInterface
     public function withoutTrace(): self
     {
         $new = clone $this;
-        $new->trace = [];
+        $new->trace = null;
 
         return $new;
     }
