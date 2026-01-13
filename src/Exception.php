@@ -19,17 +19,6 @@ class Exception implements DocumentInterface
         private ?string $stepName = null
     ) {}
 
-    public static function createFromThrowable(\Throwable $throwable, ?string $stepName = null): self
-    {
-        return new Exception(
-            get_class($throwable),
-            $throwable->getMessage(),
-            $throwable->getCode(),
-            $throwable->getTrace(),
-            $stepName
-        );
-    }
-
     public function withoutTrace(): self
     {
         $new = clone $this;
