@@ -11,7 +11,7 @@ class Exception implements DocumentInterface
     /**
      * @param array<mixed> $trace
      */
-    private function __construct(
+    public function __construct(
         private string $class,
         private string $message,
         private int $code,
